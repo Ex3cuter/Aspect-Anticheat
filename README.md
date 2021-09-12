@@ -24,4 +24,7 @@ I am willing to update and fix issues make an issue or pull request if your look
 If you use anything from this please leave credits…
 
 Also I spent alot of time on this so if you could be nice and spare a star or follow on the github it would be very nice!
+
+
 ```
+Also if you need any help join my discord at https://discord.gg/SHz9z3G4e2

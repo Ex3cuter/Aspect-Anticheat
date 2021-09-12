@@ -171,7 +171,7 @@ Citizen.CreateThread(function()
                             TriggerClientEvent('VAC:CheckStaffReturn', src, false);
                         end
                     end)
-                    
+                    -- credits to badger for the unban and ban command :_:
                     RegisterCommand('ac-unban', function(source, args, rawCommand)
                         local src = source;
                         if (src <= 0) then

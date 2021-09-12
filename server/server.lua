@@ -1,5 +1,4 @@
-
-    Citizen.CreateThread(function() 
+Citizen.CreateThread(function() 
                     local BanList = {}
                     local BanListLoad = false
                     CreateThread(

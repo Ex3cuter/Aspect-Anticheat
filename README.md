@@ -18,9 +18,10 @@ I am willing to update and fix issues make an issue or pull request if your look
 
 <br/>
 
-https://github.com/AsepctDEVS/Aspect-Anticheat/wiki/How-to-install.
+[Install Guide](https://github.com/AsepctDEVS/Aspect-Anticheat/wiki/How-to-install.)
 ### Note 
 ```
 If you use anything from this please leave credits…
 
+Also I spent alot of time on this so if you could be nice and spare a star or follow on the github it would be very nice!
 ```

@@ -28,3 +28,6 @@ Also I spent alot of time on this so if you could be nice and spare a star or fo
 
 ```
 Also if you need any help join my discord at https://discord.gg/SHz9z3G4e2
+
+#### Credits 
+Kronos#5555 - Parts of the anticheat.

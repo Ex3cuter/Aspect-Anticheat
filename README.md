@@ -34,3 +34,4 @@ Visibait
 https://github.com/JaredScar/Badger_Discord_API
 
 Note (Some parts of this anticheat are not mine, I have been informed a user named kronos pasted parts of this anticheat if your missing your credits message me on discord.)
+So it makes more sense me and this kronos user were gonna work on it with each other he has since been removed.

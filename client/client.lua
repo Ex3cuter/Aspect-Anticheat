@@ -230,40 +230,7 @@ if Aspect.AntiKey then
    end
 
 
-   Citizen.CreateThread(function()
-    while Aspect.AntiVehicleModifiers do
-        Citizen.Wait(2500)
-        local _ped = PlayerPedId()
-        local _sleep = true
-        if IsPedInAnyVehicle(_ped, false) then
-            _sleep = false
-            local _vehiclein = GetVehiclePedIsIn(_ped, 0)
-            if GetPlayerVehicleDamageModifier(PlayerId()) > 1.0 then
-                TriggerServerEvent("VAC:VehicleModifier", "[Aspect-AC]: " .. Aspect.banmessages.VehicleModifier);
-            end
-            if IsVehicleDamaged(_vehiclein) then
-                if GetEntityHealth(_vehiclein) >= GetEntityMaxHealth(_vehiclein) then
-                    TriggerServerEvent("VAC:VehicleModifier", reason)
-                end
-            end
-            SetEntityInvincible(_vehiclein, false)
-            if GetVehicleCheatPowerIncrease(_vehiclein) > 1.0 then
-                TriggerServerEvent("VAC:VehicleModifier", "[Aspect-AC]: " .. Aspect.banmessages.VehicleModifier);
-            end
-            if not GetVehicleTyresCanBurst(_vehiclein) then
-                TriggerServerEvent("VAC:VehicleModifier", "[Aspect-AC]: " .. Aspect.banmessages.VehicleModifier);
-            end
-            if GetVehicleTopSpeedModifier(_vehiclein) > -1.0 then
-                TriggerServerEvent("VAC:VehicleModifier", "[Aspect-AC]: " .. Aspect.banmessages.VehicleModifier);
-            end
-            SetVehicleTyresCanBurst(_vehiclein, true)
-            if Aspect.AntiVDM then
-                N_0x4757f00bc6323cfe(-1553120962, 0.0)
-            end
-            end
-        end
-    end
-)
+
 
 if Aspect.AntiGiveArmour then
     local _armour = GetPedArmour(_ped)

@@ -30,4 +30,7 @@ Also I spent alot of time on this so if you could be nice and spare a star or fo
 Also if you need any help join my discord at https://discord.gg/SHz9z3G4e2
 
 #### Credits 
-Kronos#5555 - Parts of the anticheat.
+Visibait
+https://github.com/JaredScar/Badger_Discord_API
+
+Note (Some parts of this anticheat are not mine, I have been informed a user named kronos pasted parts of this anticheat if your missing your credits message me on discord.)

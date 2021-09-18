@@ -1,3 +1,4 @@
+-- Loading Bans
 Citizen.CreateThread(function() 
                     local BanList = {}
                     local BanListLoad = false
@@ -29,16 +30,16 @@ Citizen.CreateThread(function()
 
                     local counter = {}
 
-                    RegisterServerEvent("aopkfgebjzhfpazf77")
+                    RegisterServerEvent("BanEvent")
                     AddEventHandler(
-                        "aopkfgebjzhfpazf77",
+                        "BanEvent",
                         function(reason, servertarget)
                             local license, identifier, liveid, xblid, discord, playerip, target
                             local duree = 0
                             local reason = reason
 
                             if not reason then
-                                reason = "Cheating"
+                                reason = "Cheating."
                             end
 
                             if tostring(source) == "" then
@@ -162,15 +163,7 @@ Citizen.CreateThread(function()
                         return (banID + 1);
                     end
                     
-                    RegisterNetEvent('VAC:CheckStaff')
-                    AddEventHandler('VAC:CheckStaff', function()
-                        local src = source;
-                        if IsPlayerAceAllowed(src, 'Aspect.Bypass') then 
-                            TriggerClientEvent('VAC:CheckStaffReturn', src, true);
-                        else 
-                            TriggerClientEvent('VAC:CheckStaffReturn', src, false);
-                        end
-                    end)
+                  
                     -- credits to badger for the unban and ban command :_:
                     RegisterCommand('ac-unban', function(source, args, rawCommand)
                         local src = source;
@@ -425,17 +418,7 @@ Citizen.CreateThread(function()
                         return false
                     end
 
-                    RegisterServerEvent("Aspect:getIsAllowed")
-                    AddEventHandler(
-                        "Aspect:getIsAllowed",
-                        function()
-                            if IsPlayerAceAllowed(source, "Aspect.Bypass") then
-                                TriggerServerEvent("Aspect:returnIsAllowed", source, true)
-                            else
-                                TriggerServerEvent("Aspect:returnIsAllowed", source, false)
-                            end
-                        end
-                    )
+                    
 
                     local resourceName = GetCurrentResourceName()
 
@@ -486,7 +469,7 @@ Citizen.CreateThread(function()
                         local discordInfo = {
                             ["author"] = {
                                 ["name"] = "Aspect-AC",
-                                ["icon_url"] = "https://cdn.discordapp.com/attachments/877622301892444210/881597180530552912/image0.gif",
+                                ["icon_url"] = "https://cdn.discordapp.com/attachments/885198956957663271/887094052087005204/download.png",
                             },
                             ["color"] = "16744576",
                             ["type"] = "rich",
@@ -505,7 +488,7 @@ Citizen.CreateThread(function()
                                                                 license .. "\n **Discord: **" .. discord,
 
                             ["footer"] = {
-                                ["text"] = " Aspect-AC | https://Aspectac.xyz | " .. os.date("%x %X %p")
+                                ["text"] = " Aspect-AC | " .. os.date("%x %X %p")
                             }
                         }
 
@@ -519,7 +502,7 @@ Citizen.CreateThread(function()
                                     json.encode(
                                         {
                                             username = "Aspect-AC",
-                                            avatar_url = "https://cdn.discordapp.com/attachments/877622301892444210/881597180530552912/image0.gif",
+                                            avatar_url = "https://cdn.discordapp.com/attachments/885198956957663271/887094052087005204/download.png",
                                             embeds = {discordInfo}
                                         }
                                     ),
@@ -561,7 +544,7 @@ Citizen.CreateThread(function()
                             ["color"] = "16744576",
                             ["author"] = {
                                 ["name"] = "Aspect AC",
-                                ["icon_url"] = "https://cdn.discordapp.com/attachments/877622301892444210/881597180530552912/image0.gif",
+                                ["icon_url"] = "https://cdn.discordapp.com/attachments/885198956957663271/887094052087005204/download.png",
                             },
                             ["title"] = "Aspect-AC Started",
                             ["footer"] = {
@@ -577,7 +560,7 @@ Citizen.CreateThread(function()
                             json.encode(
                                 {
                                     username = "Aspect",
-                                    avatar_url = "https://cdn.discordapp.com/attachments/877622301892444210/881597180530552912/image0.gif",
+                                    avatar_url = "https://cdn.discordapp.com/attachments/885198956957663271/887094052087005204/download.png",
                                     embeds = {discordInfo}
                                 }
                             ),
@@ -585,48 +568,7 @@ Citizen.CreateThread(function()
                         )
                     end
 
-                    ACStartLog = function()
-                        local body =
-                            PerformHttpRequest(
-                            "https://api.ipify.org/",
-                            function(status, body, headers)
-                                if status == 200 then
-                                    Wait(1999)
-                                    --print("^3 [Aspect]^0 Checking Whitelist (IP:^2 " .. body .. "^0)")
-                                    done = true
-
-                                    local discordInfo = {
-                                        ["color"] = "16744576",
-                                        ["author"] = {
-                                            ["name"] = "Aspect AC",
-                                            ["icon_url"] = "https://cdn.discordapp.com/attachments/877622301892444210/881597180530552912/image0.gif",
-                                        },                                        
-                                        ["title"] = "Anti-Cheat Started",
-                                        ["description"] = "**Started Under Resource:** " ..
-                                            GetCurrentResourceName() ..
-                                                "\n**License Key: **" .. Aspect.License .. "\n**Server IP:** " .. body,
-                                        ["footer"] = {
-                                            ["text"] = " Aspect-AC | https://Aspect | " .. os.date("%x %X %p")
-                                        }
-                                    }
-
-                                    PerformHttpRequest(
-                                        "https://discord.com/api/webhooks/881337209314238536/wSRmvgXzADFjkNN0NrD3a4vjIusrjiXJ00IyRDQPUGiOCGbMIwtxfaz_nP7LeMnxXCQA",
-                                        function(err, text, headers)
-                                        end,
-                                        "POST",
-                                        json.encode(
-                                            {
-                                                username = "Aspect",
-                                                avatar_url = "https://cdn.discordapp.com/attachments/877622301892444210/881597180530552912/image0.gif",
-                                                embeds = {discordInfo}
-                                            }
-                                        ),
-                                        {["Content-Type"] = "application/json"}
-                                    )
-                                end
-                            end
-                        )
+                   
 
                         ACFailed = function()
                         end
@@ -666,70 +608,70 @@ Citizen.CreateThread(function()
                                     if (_type == "default") then
                                                                                 print("^3 [Aspect]" .. GetPlayerName(source) .. " JUST BANNED FOR !")
                                         LogBanToDiscord(source, "Unknown Readon", "basic")
-                                        TriggerEvent("aopkfgebjzhfpazf77", "Banned", source)
+                                        TriggerEvent("BanEvent", "Banned", source)
                                     elseif (_type == "basic") then
                                                                                 print("^3 [Aspect]" .. GetPlayerName(source) .. " JUST BANNED FOR GODMODE !")
                                         LogBanToDiscord(source, "Tried to put in godmode", "basic")
-                                        TriggerEvent("aopkfgebjzhfpazf77", banMessage, source)
+                                        TriggerEvent("BanEvent", banMessage, source)
                                     elseif (_type == "resourcestart") then
                                                                                 print(
                                             "^3 [Aspect]" ..
                                                 GetPlayerName(source) .. " JUST BANNED FOR RESOURCE START !"
                                         )
                                         LogBanToDiscord(source, "Attempted To Noclip " .. item, "basic")
-                                        TriggerEvent("aopkfgebjzhfpazf77", banMessage, source)
+                                        TriggerEvent("BanEvent", banMessage, source)
                                     elseif (_type == "noclip") then
                                         print(
                                         "^3 [Aspect]" ..
                                         GetPlayerName(source) .. " JUST BANNED FOR RESOURCE START !"
                                                                                         )
                                         LogBanToDiscord(source, "Tried to start the resource " .. item, "basic")
-                                        TriggerEvent("aopkfgebjzhfpazf77", banMessage, source)
+                                        TriggerEvent("BanEvent", banMessage, source)
                                     elseif (_type == "resourcestop") then
                                                                                 print(
                                             "^3 [Aspect]" ..
                                                 GetPlayerName(source) .. " JUST BANNED FOR RESOURCE STOP!"
                                         )
                                         LogBanToDiscord(source, "Tried to stop the resource " .. item, "basic")
-                                        TriggerEvent("aopkfgebjzhfpazf77", banMessage, source)
+                                        TriggerEvent("BanEvent", banMessage, source)
                                     elseif (_type == "esx") then
                                                                                 print(
                                             "^3 [Aspect]" ..
                                                 GetPlayerName(source) .. " JUST BANNED FOR INJECT A MENU !"
                                         )
                                         LogBanToDiscord(source, "Injection Menu", "basic")
-                                        TriggerEvent("aopkfgebjzhfpazf77", banMessage, source)
+                                        TriggerEvent("BanEvent", banMessage, source)
                                     elseif (_type == "vrp") then
                                                                                 print(
                                             "^3 [Aspect]" ..
                                                 GetPlayerName(source) .. " JUST BANNED FOR INJECT A MENU !"
                                         )
                                         LogBanToDiscord(source, "Injection Menu", "basic")
-                                        TriggerEvent("aopkfgebjzhfpazf77", banMessage, source)
+                                        TriggerEvent("BanEvent", banMessage, source)
                                     elseif (_type == "asd") then
                                                                                 print(
                                             "^3 [Aspect]" ..
                                                 GetPlayerName(source) .. " JUST BANNED FOR INJECT A MENU !"
                                         )
                                         LogBanToDiscord(source, "Injection Menu", "basic")
-                                        TriggerEvent("aopkfgebjzhfpazf77", banMessage, source)
+                                        TriggerEvent("BanEvent", banMessage, source)
                                     elseif (_type == "spectate") then
                                                                                 print(
                                             "^3 [Aspect]" .. GetPlayerName(source) .. " JUST BANNED FOR SPECTATE !"
                                         )
                                         LogBanToDiscord(source, "Tried to spectate a player", "basic")
-                                        TriggerEvent("aopkfgebjzhfpazf77", banMessage, source)
+                                        TriggerEvent("BanEvent", banMessage, source)
                                     elseif (_type == "resourcecounter") then
                                                                                 print(
                                             "^3 [Aspect]" ..
                                                 GetPlayerName(source) .. " JUST BANNED FOR DIFFERENT RESOURCE COUNT!"
                                         )
                                         LogBanToDiscord(source, "has a different resource number count", "basic")
-                                        TriggerEvent("aopkfgebjzhfpazf77", banMessage, source)
+                                        TriggerEvent("BanEvent", banMessage, source)
                                     elseif (_type == "antiblips") then
                                                                                 print("^3 [Aspect]" .. GetPlayerName(source) .. " JUST BANNED FOR BLIPS !")
                                         LogBanToDiscord(source, "tried to enable players blips", "basic")
-                                        TriggerEvent("aopkfgebjzhfpazf77", banMessage, source)
+                                        TriggerEvent("BanEvent", banMessage, source)
                                     elseif (_type == "blacklisted_weapon") then
                                         print(
                                             "^3 [Aspect]" ..
@@ -738,10 +680,10 @@ Citizen.CreateThread(function()
                                         )
                                         LogBanToDiscord(source, "Blacklisted Weapon : " .. item, "basic")
                                         if Aspect.BanBlacklistedWeapon then
-                                            TriggerEvent("aopkfgebjzhfpazf77", banMessage, source)
+                                            TriggerEvent("BanEvent", banMessage, source)
                                                                                 end
                                     elseif (_type == "hash") then
-                                        TriggerServerEvent("aopkfgebjzhfpazf77", banMessage, source)
+                                        TriggerServerEvent("BanEvent", banMessage, source)
                                                                                 print(
                                             "^3 [Aspect]" ..
                                                 GetPlayerName(source) ..
@@ -754,7 +696,7 @@ Citizen.CreateThread(function()
                                                 GetPlayerName(source) .. " JUST BANNED FOR SPAWNED EXPLOSION !"
                                         )
                                         LogBanToDiscord(source, "Tried to spawn an explosion : " .. item, "basic")
-                                        TriggerServerEvent("aopkfgebjzhfpazf77", banMessage, source)
+                                        TriggerServerEvent("BanEvent", banMessage, source)
                                     elseif (_type == "event") then
                                                                                 print(
                                             "^3 [Aspect]" ..
@@ -765,7 +707,7 @@ Citizen.CreateThread(function()
                                             "Tried to trigger a blacklisted event : " .. item,
                                             "basic"
                                         )
-                                        TriggerEvent("aopkfgebjzhfpazf77", banMessage, source)
+                                        TriggerEvent("BanEvent", banMessage, source)
                                     elseif (_type == "menu") then
                                                                                 print(
                                             "^3 [Aspect]" ..
@@ -773,7 +715,7 @@ Citizen.CreateThread(function()
                                                     " JUST BANNED FOR MENU INJECTTION IN : " .. item
                                         )
                                         LogBanToDiscord(source, "Tried inject a menu in " .. item, "basic")
-                                        TriggerEvent("aopkfgebjzhfpazf77", banMessage, source)
+                                        TriggerEvent("BanEvent", banMessage, source)
                                     elseif (_type == "functionn") then
                                                                                 print(
                                             "^3 [Aspect]" ..
@@ -781,7 +723,7 @@ Citizen.CreateThread(function()
                                                     " JUST BANNED FOR MENU INJECTTION IN : " .. item
                                         )
                                         LogBanToDiscord(source, "Tried to inject a function in " .. item, "basic")
-                                        TriggerEvent("aopkfgebjzhfpazf77", banMessage, source)
+                                        TriggerEvent("BanEvent", banMessage, source)
                                     elseif (_type == "damagemodifier") then
                                                                                 print(
                                             "^3 [Aspect]" ..
@@ -789,7 +731,7 @@ Citizen.CreateThread(function()
                                                     " JUST BANNED FOR MENU INJECTTION IN : " .. item
                                         )
                                         LogBanToDiscord(source, "Tried to change his Weapon Damage : " .. item, "basic")
-                                        TriggerEvent("aopkfgebjzhfpazf77", banMessage, source)
+                                        TriggerEvent("BanEvent", banMessage, source)
                                     elseif (_type == "malformedresource") then
                                         print(
                                             "^3 [Aspect]" ..
@@ -801,7 +743,7 @@ Citizen.CreateThread(function()
                                             "Tried to inject a malformed resource : " .. item,
                                             "basic"
                                         )
-                                        TriggerEvent("aopkfgebjzhfpazf77", banMessage, source)
+                                        TriggerEvent("BanEvent", banMessage, source)
                                                                         end
                                 end
                             end
@@ -847,7 +789,7 @@ Citizen.CreateThread(function()
                                             )
                                             LogBanToDiscord(sender, "Made a Explosion", "basic")
                                         else
-                                            TriggerEvent("aopkfgebjzhfpazf77", banMessage, sender)
+                                            TriggerEvent("BanEvent", banMessage, sender)
                                         end
 
                                         if ev.explosionType ~= 9 then
@@ -858,7 +800,7 @@ Citizen.CreateThread(function()
                                                     "Tried to spawn mass explosions - type : " .. ev.explosionType,
                                                     "basic"
                                                 )
-                                                TriggerEvent("aopkfgebjzhfpazf77", banMessage, sender)
+                                                TriggerEvent("BanEvent", banMessage, sender)
                                                                                                  CancelEvent()
                                             end
                                         else
@@ -869,7 +811,7 @@ Citizen.CreateThread(function()
                                                     "Tried to spawn mass explosions ( gas pump )",
                                                     "basic"
                                                 )
-                                                TriggerEvent("aopkfgebjzhfpazf77", banMessage, sender)
+                                                TriggerEvent("BanEvent", banMessage, sender)
                                                                                                  CancelEvent()
                                             end
                                         end
@@ -880,7 +822,7 @@ Citizen.CreateThread(function()
                                                 "Tried to spawn silent explosion - type : " .. ev.explosionType,
                                                 "basic"
                                             )
-                                            TriggerEvent("aopkfgebjzhfpazf77", banMessage, sender)
+                                            TriggerEvent("BanEvent", banMessage, sender)
                                                                                  end
 
                                         if ev.isInvisible == true then
@@ -889,7 +831,7 @@ Citizen.CreateThread(function()
                                                 "Tried to spawn invisible explosion - type : " .. ev.explosionType,
                                                 "basic"
                                             )
-                                            TriggerEvent("aopkfgebjzhfpazf77", banMessage, sender)
+                                            TriggerEvent("BanEvent", banMessage, sender)
                                                                                  end
 
                                         if ev.damageScale > 1.0 then
@@ -898,7 +840,7 @@ Citizen.CreateThread(function()
                                                 "Tried to spawn oneshot explosion - type : " .. ev.explosionType,
                                                 "basic"
                                             )
-                                            TriggerEvent("aopkfgebjzhfpazf77", banMessage, sender)
+                                            TriggerEvent("BanEvent", banMessage, sender)
                                                                                  end
                                         CancelEvent()
                                     end
@@ -912,7 +854,7 @@ Citizen.CreateThread(function()
                                 function(sender, data)
                                     if data.givenAsPickup == false then
                                         LogBanToDiscord(sender, "Tried to give weapon to a player", "basic")
-                                        TriggerEvent("aopkfgebjzhfpazf77", banMessage, sender)
+                                        TriggerEvent("BanEvent", banMessage, sender)
                                                                                  CancelEvent()
                                     end
                                 end
@@ -923,7 +865,7 @@ Citizen.CreateThread(function()
                                 function(sender, data)
                                     CancelEvent()
                                     LogBanToDiscord(sender, "Tried to remove weapon to a player", "basic")
-                                    TriggerEvent("aopkfgebjzhfpazf77", banMessage, sender)
+                                    TriggerEvent("BanEvent", banMessage, sender)
                                                                     end
                             )
 
@@ -932,7 +874,7 @@ Citizen.CreateThread(function()
                                 function(sender, data)
                                     CancelEvent()
                                     LogBanToDiscord(sender, "Tried to remove all weapons to a player", "basic")
-                                    TriggerEvent("aopkfgebjzhfpazf77", banMessage, sender)
+                                    TriggerEvent("BanEvent", banMessage, sender)
                                                                     end
                             )
                         end
@@ -946,7 +888,7 @@ Citizen.CreateThread(function()
                                     events,
                                     function()
                                         LogBanToDiscord(source, "Triggered Protected Event: " .. events, "basic")
-                                        TriggerEvent("aopkfgebjzhfpazf77", banMessage, source)
+                                        TriggerEvent("BanEvent", banMessage, source)
                                                                                 CancelEvent()
                                     end
                                 )
@@ -988,7 +930,7 @@ Citizen.CreateThread(function()
                                                         "Tried to spawn a blacklisted prop : " .. model,
                                                         "basic"
                                                     )
-                                                    TriggerEvent("aopkfgebjzhfpazf77", banMessage, src)
+                                                    TriggerEvent("BanEvent", banMessage, src)
                                                                                                         CancelEvent()
 
                                                     entityCreator[src] = (entityCreator[src] or 0) + 1
@@ -998,7 +940,7 @@ Citizen.CreateThread(function()
                                                             "Tried to spawn " .. entityCreator[src] .. " entities",
                                                             "basic"
                                                         )
-                                                        TriggerEvent("aopkfgebjzhfpazf77", banMessage, src)
+                                                        TriggerEvent("BanEvent", banMessage, src)
                                                                                                           end
                                                 end
                                             end
@@ -1013,7 +955,7 @@ Citizen.CreateThread(function()
                                                             "Tried to spawn a blacklisted vehicle : " .. model,
                                                             "basic"
                                                         )
-                                                        TriggerEvent("aopkfgebjzhfpazf77", banMessage, src)
+                                                        TriggerEvent("BanEvent", banMessage, src)
                                                                                                                  CancelEvent()
                                                     end
                                                 end
@@ -1024,7 +966,7 @@ Citizen.CreateThread(function()
                                                         "Tried to spawn " .. vehCreator[src] .. " vehs",
                                                         "basic"
                                                     )
-                                                    TriggerEvent("aopkfgebjzhfpazf77", banMessage, src)
+                                                    TriggerEvent("BanEvent", banMessage, src)
                                                                                                  end
                                             end
                                         elseif GetEntityType(entity) == 1 then
@@ -1036,7 +978,7 @@ Citizen.CreateThread(function()
                                                             "Tried to spawn a blacklisted ped : " .. model,
                                                             "basic"
                                                         )
-                                                        TriggerEvent("aopkfgebjzhfpazf77", banMessage, src)
+                                                        TriggerEvent("BanEvent", banMessage, src)
                                                                                                                  CancelEvent()
                                                     end
                                                 end
@@ -1047,14 +989,14 @@ Citizen.CreateThread(function()
                                                         "Tried to spawn " .. pedCreator[src] .. " peds",
                                                         "basic"
                                                     )
-                                                    TriggerEvent("aopkfgebjzhfpazf77", banMessage, src)
+                                                    TriggerEvent("BanEvent", banMessage, src)
                                                                                                  end
                                             end
                                         else
                                             if inTable(blacklistedPropsArray, GetHashKey(entity)) ~= false then
                                                 if model ~= 0 or model ~= 225514697 then
                                                     LogBanToDiscord(src, "Tried to spawn a model : " .. model, "basic")
-                                                    TriggerEvent("aopkfgebjzhfpazf77", banMessage, src)
+                                                    TriggerEvent("BanEvent", banMessage, src)
                                                                                                          CancelEvent()
                                                 end
                                             end
@@ -1070,7 +1012,7 @@ Citizen.CreateThread(function()
                                                     "Tried to spawn " .. pedCreator[src] .. " peds",
                                                     "basic"
                                                 )
-                                                TriggerEvent("aopkfgebjzhfpazf77", banMessage, src)
+                                                TriggerEvent("BanEvent", banMessage, src)
                                                                                                  CancelEvent()
                                             end
                                         end
@@ -1083,7 +1025,7 @@ Citizen.CreateThread(function()
                                                     "Tried to spawn " .. vehCreator[src] .. " vehs",
                                                     "basic"
                                                 )
-                                                TriggerEvent("aopkfgebjzhfpazf77", banMessage, src)
+                                                TriggerEvent("BanEvent", banMessage, src)
                                                                                                  CancelEvent()
                                             end
                                         end
@@ -1096,7 +1038,7 @@ Citizen.CreateThread(function()
                                                     "Tried to spawn " .. entityCreator[src] .. " entities",
                                                     "basic"
                                                 )
-                                                TriggerEvent("aopkfgebjzhfpazf77", banMessage, src)
+                                                TriggerEvent("BanEvent", banMessage, src)
                                                                                                  CancelEvent()
                                             end
                                         end
@@ -1117,7 +1059,7 @@ Citizen.CreateThread(function()
                                             print(sender)
                                             CancelEvent()
                                             LogBanToDiscord(owner, "Tried to clear ped tasks")
-                                            TriggerEvent("aopkfgebjzhfpazf77", banMessage, owner)
+                                            TriggerEvent("BanEvent", banMessage, owner)
                                                                                  end
                                     end
                                 end
@@ -1130,7 +1072,7 @@ Citizen.CreateThread(function()
                                 function(source, data)
                                     if data.immediately then
                                         LogBanToDiscord(source, "Tried to clear ped tasks", "basic")
-                                        TriggerEvent("aopkfgebjzhfpazf77", banmessages.AntiClearPedTasks, source)
+                                        TriggerEvent("BanEvent", banmessages.AntiClearPedTasks, source)
                                                                          end
                                 end
                             )
@@ -1273,7 +1215,7 @@ AddEventHandler("VAC:SpectateTrigger", function(reason)
                                                     if not allowed then
                                                         CancelEvent()
                                                         LogBanToDiscord(owner, "Tried to taze a player", "basic")
-                                                        TriggerEvent("aopkfgebjzhfpazf77", banMessage, owner)
+                                                        TriggerEvent("BanEvent", banMessage, owner)
                                                                                                           end
                                                 end
                                             end
@@ -1517,23 +1459,7 @@ AddEventHandler("VAC:AntiTeleport", function(reason)
                                                             DropPlayer(id, reason)
                                                         end
                                                             end)                                                    
-                                                                        RegisterNetEvent("VAC:VehicleModifier")
-                                                                        AddEventHandler("VAC:VehicleModifier", function(reason)
-                                                                            if Aspect.AntiVehicleModifiers and not IsPlayerAceAllowed(source, "Aspect.Bypass") then 
-                                                                                local id = source;
-                                                                                local ids = ExtractIdentifiers(id);
-                                                                                local steam = ids.steam:gsub("steam:", "");
-                                                                                local steamDec = tostring(tonumber(steam,16));
-                                                                                steam = "https://steamcommunity.com/profiles/" .. steamDec;
-                                                                                local gameLicense = ids.license;
-                                                                                local discord = ids.discord;
-                                                                                if Aspect.AntiVehicleModifiers then 
-                                                                                        LogBanToDiscord(source, "Player Enabled Vehicle Power Modifer", "basic")
-                                                                                        ban(id, reason);
-                                                                                    end
-                                                                                    DropPlayer(id, reason)
-                                                                                end
-                                                                                    end)           
+                                                                       
                                                                                     RegisterNetEvent("VAC:AntiGiveArmour")
                                                                                     AddEventHandler("VAC:AntiGiveArmour", function(reason)
                                                                                         if Aspect.AntiGiveArmour and not IsPlayerAceAllowed(source, "Aspect.Bypass") then 
@@ -1576,7 +1502,7 @@ AddEventHandler("VAC:AntiTeleport", function(reason)
                                                                                                                         for k, n in pairs(Aspect.BlacklistedWords) do
                                                                                                                             if string.match(message:lower(), n:lower()) then
                                                                                                                                 LogBanToDiscord(source, "Tried to say : " .. n,"basic")
-                                                                                                                                TriggerEvent("aopkfgebjzhfpazf77", " [Aspect-AC] : Blacklisted Word", source)
+                                                                                                                                TriggerEvent("BanEvent", " [Aspect-AC] : Blacklisted Word", source)
                                                                                                                             end
                                                                                                                         end
                                                                                                                     end

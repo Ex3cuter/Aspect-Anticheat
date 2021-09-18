@@ -2,7 +2,7 @@ Aspect = {}
 
 -- [Do not edit Developer Use only!]
 Aspect.debug = false
-Aspect.Versioncheck = "1.0.0"
+Aspect.Versioncheck = "1.5.0"
 
 -------------------------------------------------------
 
@@ -29,8 +29,6 @@ Aspect.AntiGodmode = true
 Aspect.AntiThermalVision = true
 Aspect.AntiInvisble = true
 Aspect.AntiNightVision = true
-Aspect.AntiVehicleModifiers = true
-Aspect.AntiVDM = true
 Aspect.AntiGiveArmour = true
 Aspect.AntiPedChange = true
 Aspect.AntiResourceStartandStop = false

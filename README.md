@@ -31,7 +31,7 @@ Also if you need any help join my discord at https://discord.gg/SHz9z3G4e2
 
 #### Credits 
 Visibait
-
 Badger
 
+---
 <h3 align=center>Show some ❤️ by starring some of the repositories or dropping a follow!</h3>
